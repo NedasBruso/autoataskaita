@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
- 
+
   :root {
     --green: #1a9e6e;
     --green-light: #e6f7f1;
@@ -26,9 +26,9 @@
     --radius: 12px;
     --radius-sm: 8px;
   }
- 
+
   html { scroll-behavior: smooth; }
- 
+
   body {
     font-family: 'DM Sans', sans-serif;
     background: var(--bg);
@@ -37,7 +37,7 @@
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
- 
+
   /* NAV */
   nav {
     position: sticky; top: 0; z-index: 100;
@@ -84,7 +84,7 @@
     border: 1px solid var(--border);
   }
   .btn-outline:hover { background: #f0f0ec; }
- 
+
   /* HERO */
   .hero {
     max-width: 1000px; margin: 0 auto;
@@ -124,7 +124,7 @@
   }
   .btn-green.lg { padding: 14px 28px; font-size: 15px; }
   .btn-outline.lg { padding: 14px 28px; font-size: 15px; }
- 
+
   /* STATS BAR */
   .stats-bar {
     border-top: 1px solid var(--border);
@@ -142,7 +142,7 @@
     font-family: 'DM Mono', monospace;
   }
   .stat-label { font-size: 13px; color: var(--text-muted); }
- 
+
   /* SECTIONS */
   section { padding: 80px 24px; }
   .container { max-width: 1000px; margin: 0 auto; }
@@ -160,7 +160,7 @@
     font-size: 17px; color: var(--text-muted);
     max-width: 480px; line-height: 1.6; margin-bottom: 48px;
   }
- 
+
   /* HOW IT WORKS */
   .steps {
     display: grid; grid-template-columns: repeat(3, 1fr);
@@ -187,7 +187,7 @@
   .step-icon.amber { background: var(--amber-light); }
   .step h3 { font-size: 16px; font-weight: 500; margin-bottom: 8px; }
   .step p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
- 
+
   /* BENEFITS */
   .benefits-grid {
     display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center;
@@ -201,7 +201,7 @@
   }
   .benefit-text h4 { font-size: 15px; font-weight: 500; margin-bottom: 2px; }
   .benefit-text p { font-size: 14px; color: var(--text-muted); }
- 
+
   /* PDF PREVIEW CARD */
   .pdf-card {
     background: #fff; border: 1px solid var(--border);
@@ -237,7 +237,7 @@
     font-size: 12px; color: var(--text-faint);
     font-family: 'DM Mono', monospace;
   }
- 
+
   /* PRICING */
   .pricing-grid {
     display: grid; grid-template-columns: 1fr 1fr;
@@ -272,7 +272,7 @@
     display: flex; align-items: center; gap: 8px; list-style: none;
   }
   .tick { color: var(--green); font-size: 14px; }
- 
+
   /* CTA */
   .cta-section {
     background: var(--green); margin: 0 24px;
@@ -288,20 +288,20 @@
   }
   .btn-white:hover { background: #f0faf6; transform: translateY(-1px); }
   .cta-note { margin-top: 16px; font-size: 13px; color: rgba(255,255,255,0.6); }
- 
+
   /* FOOTER */
   footer {
     text-align: center; padding: 32px 24px;
     font-size: 13px; color: var(--text-faint);
     border-top: 1px solid var(--border); margin-top: 80px;
   }
- 
+
   /* FADE IN ANIMATION */
   .fade-up {
     opacity: 1; transform: translateY(0);
     transition: opacity 0.5s ease, transform 0.5s ease;
   }
- 
+
   /* RESPONSIVE */
   @media (max-width: 700px) {
     .nav-links { display: none; }
@@ -312,7 +312,7 @@
     .cta-section { padding: 40px 24px; }
     h1 { font-size: 30px; }
   }
- 
+
   /* FAQ */
   .faq-item { border-bottom: 1px solid var(--border); }
   .faq-q {
@@ -328,11 +328,11 @@
     padding-bottom: 20px; display: none;
   }
   .faq-a.open { display: block; }
- 
+
 </style>
 </head>
 <body>
- 
+
 <!-- NAV -->
 <nav>
   <div class="nav-inner">
@@ -355,7 +355,7 @@
     </ul>
   </div>
 </nav>
- 
+
 <!-- HERO -->
 <div class="hero fade-up">
   <div class="badge">
@@ -369,7 +369,7 @@
     <a href="#kaip-veikia" class="btn btn-outline lg">Sužinoti daugiau</a>
   </div>
 </div>
- 
+
 <!-- STATS BAR -->
 <div class="stats-bar">
   <div class="stats-inner">
@@ -387,7 +387,7 @@
     </div>
   </div>
 </div>
- 
+
 <!-- HOW IT WORKS -->
 <section id="kaip-veikia">
   <div class="container">
@@ -430,7 +430,7 @@
     </div>
   </div>
 </section>
- 
+
 <!-- BENEFITS -->
 <section id="privalumai" style="background: #fff; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
   <div class="container">
@@ -477,7 +477,7 @@
           </div>
         </div>
       </div>
- 
+
       <!-- PDF PREVIEW -->
       <div class="pdf-card fade-up">
         <div class="pdf-header">
@@ -521,7 +521,7 @@
     </div>
   </div>
 </section>
- 
+
 <!-- PRICING -->
 <section id="kainos">
   <div class="container" style="text-align: center;">
@@ -557,48 +557,48 @@
     </div>
   </div>
 </section>
- 
+
 <!-- FAQ -->
 <section id="duk" style="border-top: 1px solid var(--border);">
   <div class="container" style="max-width: 680px;">
     <p class="section-label">D.U.K.</p>
     <h2>Dažniausiai užduodami klausimai</h2>
     <div style="margin-top: 40px; display: flex; flex-direction: column; gap: 4px;">
- 
+
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">Kaip greitai sistema bus paruošta?<span class="faq-arrow">+</span></button>
         <div class="faq-a">Sistema paprastai paruošiama per 1–2 darbo dienas nuo susisiekimo. Viskas suderinama su jumis — forma, PDF šablonas, el. pašto siuntimas.</div>
       </div>
- 
+
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">Ar reikia kokių nors techninių žinių?<span class="faq-arrow">+</span></button>
         <div class="faq-a">Ne. Jums tereikia užpildyti formą — visą techninę dalį tvarkome mes. Sistema veikia automatiškai be jokių papildomų veiksmų iš jūsų pusės.</div>
       </div>
- 
+
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">Ar galima pritaikyti ataskaitą pagal savo saloną?<span class="faq-arrow">+</span></button>
         <div class="faq-a">Taip. PDF ataskaita pritaikoma pagal jūsų salono pavadinimą ir poreikius. Galime keisti laukus, struktūrą ir kitus elementus.</div>
       </div>
- 
+
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">Kur saugomi duomenys?<span class="faq-arrow">+</span></button>
         <div class="faq-a">Visi duomenys saugomi jūsų „Google" paskyroje — „Google Sheets" ir „Google Drive". Mes neturime prieigos prie jūsų duomenų.</div>
       </div>
- 
+
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">Ką apima mėnesinis mokestis?<span class="faq-arrow">+</span></button>
         <div class="faq-a">Mėnesinis mokestis apima sistemos priežiūrą, atnaujinimus ir palaikymą el. paštu. Jei reikia pakeitimų — susisiekite ir išspręsime.</div>
       </div>
- 
+
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">Ar galiu atsisakyti bet kada?<span class="faq-arrow">+</span></button>
         <div class="faq-a">Taip. Jokių ilgalaikių sutarčių — galite atsisakyti mėnesinio palaikymo bet kada. Sistema liks jūsų rankose.</div>
       </div>
- 
+
     </div>
   </div>
 </section>
- 
+
 <!-- CTA -->
 <section id="kontaktai" style="padding: 0 24px 80px;">
   <div class="cta-section fade-up">
@@ -607,12 +607,12 @@
     <a href="/cdn-cgi/l/email-protection#6b02050d042b0a1e1f040a1f0a18000a021f0a45080406" class="btn btn-white">Rašyti el. paštu</a>
   </div>
 </section>
- 
+
 <!-- FOOTER -->
 <footer>
   <p>© 2025 Autoataskaita.com · Klaipėda, Lietuva</p>
 </footer>
- 
+
 <script>
   function toggleFaq(btn) {
     const answer = btn.nextElementSibling;
@@ -629,4 +629,4 @@
     entries.forEach((e) => { e.target.classList.add('visible'); });
   }, { threshold: 0.1 });
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-</sc
+</script>
