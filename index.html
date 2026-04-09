@@ -604,7 +604,7 @@
   <div class="cta-section fade-up">
     <h2>Pradėkite šiandien</h2>
     <p>Susisiekite ir sistema bus paruošta per 1–2 dienas.</p>
-    <a href="mailto:info@autoataskaita.com" class="btn btn-white">Rašyti el. paštu</a>
+    <a href="/cdn-cgi/l/email-protection#6b02050d042b0a1e1f040a1f0a18000a021f0a45080406" class="btn btn-white">Rašyti el. paštu</a>
   </div>
 </section>
  
@@ -613,7 +613,7 @@
   <p>© 2025 Autoataskaita.com · Klaipėda, Lietuva</p>
 </footer>
  
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js">
+<script>
   function toggleFaq(btn) {
     const answer = btn.nextElementSibling;
     const arrow = btn.querySelector('.faq-arrow');
@@ -625,6 +625,8 @@
       arrow.style.transform = 'rotate(45deg)';
     }
   }
- 
-</script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  const observer = new Intersec
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</sc
