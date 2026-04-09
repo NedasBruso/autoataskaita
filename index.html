@@ -312,6 +312,23 @@
     .cta-section { padding: 40px 24px; }
     h1 { font-size: 30px; }
   }
+
+  /* FAQ */
+  .faq-item { border-bottom: 1px solid var(--border); }
+  .faq-q {
+    width: 100%; background: none; border: none; padding: 20px 0;
+    font-family: "DM Sans", sans-serif; font-size: 16px; font-weight: 500;
+    color: #111; text-align: left; cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  }
+  .faq-q:hover { color: var(--green); }
+  .faq-arrow { font-size: 20px; font-weight: 300; flex-shrink: 0; transition: transform 0.2s; color: var(--green); }
+  .faq-a {
+    font-size: 15px; color: #666; line-height: 1.7;
+    padding-bottom: 20px; display: none;
+  }
+  .faq-a.open { display: block; }
+
 </style>
 </head>
 <body>
@@ -333,6 +350,7 @@
       <li><a href="#kaip-veikia">Kaip veikia</a></li>
       <li><a href="#privalumai">Privalumai</a></li>
       <li><a href="#kainos">Kainos</a></li>
+      <li><a href="#duk">D.U.K.</a></li>
       <li><a href="#kontaktai" class="btn btn-green">Susisiekti</a></li>
     </ul>
   </div>
@@ -540,13 +558,53 @@
   </div>
 </section>
 
+<!-- FAQ -->
+<section id="duk" style="border-top: 1px solid var(--border);">
+  <div class="container" style="max-width: 680px;">
+    <p class="section-label">D.U.K.</p>
+    <h2>Dažniausiai užduodami klausimai</h2>
+    <div style="margin-top: 40px; display: flex; flex-direction: column; gap: 4px;">
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Kaip greitai sistema bus paruošta?<span class="faq-arrow">+</span></button>
+        <div class="faq-a">Sistema paprastai paruošiama per 1–2 darbo dienas nuo susisiekimo. Viskas suderinama su jumis — forma, PDF šablonas, el. pašto siuntimas.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Ar reikia kokių nors techninių žinių?<span class="faq-arrow">+</span></button>
+        <div class="faq-a">Ne. Jums tereikia užpildyti formą — visą techninę dalį tvarkome mes. Sistema veikia automatiškai be jokių papildomų veiksmų iš jūsų pusės.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Ar galima pritaikyti ataskaitą pagal savo saloną?<span class="faq-arrow">+</span></button>
+        <div class="faq-a">Taip. PDF ataskaita pritaikoma pagal jūsų salono pavadinimą ir poreikius. Galime keisti laukus, struktūrą ir kitus elementus.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Kur saugomi duomenys?<span class="faq-arrow">+</span></button>
+        <div class="faq-a">Visi duomenys saugomi jūsų „Google" paskyroje — „Google Sheets" ir „Google Drive". Mes neturime prieigos prie jūsų duomenų.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Ką apima mėnesinis mokestis?<span class="faq-arrow">+</span></button>
+        <div class="faq-a">Mėnesinis mokestis apima sistemos priežiūrą, atnaujinimus ir palaikymą el. paštu. Jei reikia pakeitimų — susisiekite ir išspręsime.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Ar galiu atsisakyti bet kada?<span class="faq-arrow">+</span></button>
+        <div class="faq-a">Taip. Jokių ilgalaikių sutarčių — galite atsisakyti mėnesinio palaikymo bet kada. Sistema liks jūsų rankose.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- CTA -->
 <section id="kontaktai" style="padding: 0 24px 80px;">
   <div class="cta-section fade-up">
     <h2>Pradėkite šiandien</h2>
     <p>Susisiekite ir sistema bus paruošta per 1–2 dienas.</p>
-    <a href="/cdn-cgi/l/email-protection#9ef7f0f8f1deffebeaf1ffeaffedf5fff7eaffb0fdf1f3" class="btn btn-white">Rašyti el. paštu</a>
-    <p class="cta-note">arba susisiekite per WhatsApp</p>
+    <a href="mailto:info@autoataskaita.com" class="btn btn-white">Rašyti el. paštu</a>
   </div>
 </section>
 
@@ -555,5 +613,18 @@
   <p>© 2025 Autoataskaita.com · Klaipėda, Lietuva</p>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js">
+  function toggleFaq(btn) {
+    const answer = btn.nextElementSibling;
+    const arrow = btn.querySelector('.faq-arrow');
+    const isOpen = answer.classList.contains('open');
+    document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
+    document.querySelectorAll('.faq-arrow').forEach(a => a.style.transform = '');
+    if (!isOpen) {
+      answer.classList.add('open');
+      arrow.style.transform = 'rotate(45deg)';
+    }
+  }
+
+</script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   const observer = new Intersec
