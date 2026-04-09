@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Autoataskaita — Automatizuota patikrinimo ataskaita automobilio salonams</title>
+<meta name="description" content="Automatizuota automobilio patikrinimo PDF ataskaita. Pirkėjas gauna profesionalų dokumentą el. paštu akimirksniu.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #1a9e6e;
+    --green-light: #e6f7f1;
+    --green-dark: #0d6b4a;
+    --amber: #e8a020;
+    --amber-light: #fdf3e0;
+    --text: #111;
+    --text-muted: #666;
+    --text-faint: #999;
+    --border: rgba(0,0,0,0.09);
+    --bg: #fafaf8;
+    --bg-card: #fff;
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(250,250,248,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+  }
+  .nav-inner {
+    max-width: 1000px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+  .logo {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 17px; font-weight: 600; text-decoration: none; color: var(--text);
+  }
+  .logo-icon {
+    width: 34px; height: 34px; background: var(--green);
+    border-radius: 9px; display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .nav-links {
+    display: flex; align-items: center; gap: 28px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 14px; color: var(--text-muted); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 10px 22px; border-radius: var(--radius-sm);
+    font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500;
+    cursor: pointer; transition: all 0.2s; text-decoration: none; border: none;
+  }
+  .btn-green {
+    background: var(--green); color: #fff;
+  }
+  .btn-green:hover { background: var(--green-dark); transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent; color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-outline:hover { background: #f0f0ec; }
+
+  /* HERO */
+  .hero {
+    max-width: 1000px; margin: 0 auto;
+    padding: 88px 24px 72px;
+    text-align: center;
+    color: #111;
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--green-light); color: var(--green-dark);
+    font-size: 12px; font-weight: 500; padding: 5px 14px;
+    border-radius: 20px; margin-bottom: 24px;
+    border: 1px solid rgba(26,158,110,0.2);
+  }
+  .badge-dot {
+    width: 6px; height: 6px; background: var(--green);
+    border-radius: 50%; animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; } 50% { opacity: 0.4; }
+  }
+  h1 {
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 600; line-height: 1.15;
+    letter-spacing: -0.02em;
+    max-width: 680px; margin: 0 auto 20px;
+    color: #111;
+  }
+  h1 span { color: var(--green); }
+  .hero-sub {
+    font-size: 18px; color: var(--text-muted);
+    max-width: 500px; margin: 0 auto 36px;
+    line-height: 1.6;
+  }
+  .hero-ctas {
+    display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+  }
+  .btn-green.lg { padding: 14px 28px; font-size: 15px; }
+  .btn-outline.lg { padding: 14px 28px; font-size: 15px; }
+
+  /* STATS BAR */
+  .stats-bar {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: #fff;
+    padding: 20px 24px;
+  }
+  .stats-inner {
+    max-width: 1000px; margin: 0 auto;
+    display: flex; justify-content: center; gap: 64px; flex-wrap: wrap;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-size: 22px; font-weight: 600; color: var(--green); display: block;
+    font-family: 'DM Mono', monospace;
+  }
+  .stat-label { font-size: 13px; color: var(--text-muted); }
+
+  /* SECTIONS */
+  section { padding: 80px 24px; }
+  .container { max-width: 1000px; margin: 0 auto; }
+  .section-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--green);
+    margin-bottom: 12px;
+  }
+  h2 {
+    font-size: clamp(24px, 3.5vw, 36px);
+    font-weight: 600; line-height: 1.2;
+    letter-spacing: -0.015em; margin-bottom: 16px;
+  }
+  .section-sub {
+    font-size: 17px; color: var(--text-muted);
+    max-width: 480px; line-height: 1.6; margin-bottom: 48px;
+  }
+
+  /* HOW IT WORKS */
+  .steps {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2px; background: var(--border);
+    border: 1px solid var(--border); border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .step {
+    background: #fff; padding: 32px 28px;
+    position: relative;
+  }
+  .step-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; color: var(--text-faint);
+    margin-bottom: 20px; display: block;
+  }
+  .step-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 16px;
+  }
+  .step-icon.green { background: var(--green-light); }
+  .step-icon.blue { background: #e8f0fe; }
+  .step-icon.amber { background: var(--amber-light); }
+  .step h3 { font-size: 16px; font-weight: 500; margin-bottom: 8px; }
+  .step p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+
+  /* BENEFITS */
+  .benefits-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center;
+  }
+  .benefit-list { display: flex; flex-direction: column; gap: 20px; }
+  .benefit-item { display: flex; gap: 14px; align-items: flex-start; }
+  .benefit-check {
+    width: 22px; height: 22px; background: var(--green-light);
+    border-radius: 50%; flex-shrink: 0; margin-top: 2px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .benefit-text h4 { font-size: 15px; font-weight: 500; margin-bottom: 2px; }
+  .benefit-text p { font-size: 14px; color: var(--text-muted); }
+
+  /* PDF PREVIEW CARD */
+  .pdf-card {
+    background: #fff; border: 1px solid var(--border);
+    border-radius: var(--radius); overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.06);
+  }
+  .pdf-header {
+    background: var(--green); padding: 20px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .pdf-title { color: #fff; font-weight: 600; font-size: 15px; }
+  .pdf-subtitle { color: rgba(255,255,255,0.75); font-size: 12px; margin-top: 2px; }
+  .pdf-badge {
+    background: rgba(255,255,255,0.2); color: #fff;
+    font-size: 11px; font-weight: 600; padding: 4px 10px;
+    border-radius: 6px; font-family: 'DM Mono', monospace;
+  }
+  .pdf-body { padding: 20px 24px; }
+  .pdf-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 0; border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+  .pdf-row:last-child { border-bottom: none; }
+  .pdf-row-label { color: var(--text-muted); }
+  .status { font-weight: 500; font-size: 12px; padding: 3px 10px; border-radius: 20px; }
+  .status-ok { background: var(--green-light); color: var(--green-dark); }
+  .status-warn { background: var(--amber-light); color: #a06010; }
+  .pdf-footer {
+    padding: 12px 24px; background: #f7f7f5;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between;
+    font-size: 12px; color: var(--text-faint);
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* PRICING */
+  .pricing-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 20px; max-width: 580px; margin: 0 auto;
+  }
+  .price-card {
+    background: #fff; border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 28px;
+  }
+  .price-card.featured {
+    border-color: var(--green); border-width: 2px;
+    position: relative;
+  }
+  .featured-badge {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--green); color: #fff;
+    font-size: 11px; font-weight: 600; padding: 4px 14px;
+    border-radius: 20px; white-space: nowrap;
+  }
+  .price-label { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; }
+  .price-amount {
+    font-size: 38px; font-weight: 600; line-height: 1;
+    font-family: 'DM Mono', monospace; margin-bottom: 4px;
+  }
+  .price-period { font-size: 13px; color: var(--text-faint); margin-bottom: 16px; }
+  .price-desc { font-size: 14px; color: var(--text-muted); line-height: 1.5; }
+  .price-includes {
+    margin-top: 16px; display: flex; flex-direction: column; gap: 8px;
+  }
+  .price-includes li {
+    font-size: 13px; color: var(--text-muted);
+    display: flex; align-items: center; gap: 8px; list-style: none;
+  }
+  .tick { color: var(--green); font-size: 14px; }
+
+  /* CTA */
+  .cta-section {
+    background: var(--green); margin: 0 24px;
+    border-radius: var(--radius); padding: 56px 48px;
+    text-align: center; max-width: 952px;
+    margin-left: auto; margin-right: auto;
+  }
+  .cta-section h2 { color: #fff; margin-bottom: 12px; }
+  .cta-section p { color: rgba(255,255,255,0.8); font-size: 17px; margin-bottom: 32px; }
+  .btn-white {
+    background: #fff; color: var(--green-dark);
+    padding: 14px 32px; font-size: 15px; font-weight: 600;
+  }
+  .btn-white:hover { background: #f0faf6; transform: translateY(-1px); }
+  .cta-note { margin-top: 16px; font-size: 13px; color: rgba(255,255,255,0.6); }
+
+  /* FOOTER */
+  footer {
+    text-align: center; padding: 32px 24px;
+    font-size: 13px; color: var(--text-faint);
+    border-top: 1px solid var(--border); margin-top: 80px;
+  }
+
+  /* FADE IN ANIMATION */
+  .fade-up {
+    opacity: 1; transform: translateY(0);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 700px) {
+    .nav-links { display: none; }
+    .steps { grid-template-columns: 1fr; }
+    .benefits-grid { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .stats-inner { gap: 32px; }
+    .cta-section { padding: 40px 24px; }
+    h1 { font-size: 30px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <rect x="2" y="3" width="14" height="12" rx="2" stroke="white" stroke-width="1.6"/>
+          <path d="M5 7.5h8M5 10.5h5.5" stroke="white" stroke-width="1.4" stroke-linecap="round"/>
+          <path d="M5 5h2" stroke="white" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+      </div>
+      Autoataskaita
+    </a>
+    <ul class="nav-links">
+      <li><a href="#kaip-veikia">Kaip veikia</a></li>
+      <li><a href="#privalumai">Privalumai</a></li>
+      <li><a href="#kainos">Kainos</a></li>
+      <li><a href="#kontaktai" class="btn btn-green">Susisiekti</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero fade-up">
+  <div class="badge">
+    <span class="badge-dot"></span>
+    Veikia automatiškai — 24/7
+  </div>
+  <h1>Automobilio patikrinimo ataskaita — <span>automatiškai</span></h1>
+  <p class="hero-sub">Pirkėjas gauna profesionalią PDF ataskaitą el. paštu per kelias sekundes. Jokio rankinio darbo jūsų salonui.</p>
+  <div class="hero-ctas">
+    <a href="#kontaktai" class="btn btn-green lg">Gauti sistemą</a>
+    <a href="#kaip-veikia" class="btn btn-outline lg">Sužinoti daugiau</a>
+  </div>
+</div>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat">
+      <span class="stat-num">~5 sek.</span>
+      <span class="stat-label">PDF generavimo laikas</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">1–2 d.</span>
+      <span class="stat-label">Sąrankos laikas</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">0</span>
+      <span class="stat-label">Rankinis darbas</span>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section id="kaip-veikia">
+  <div class="container">
+    <p class="section-label">Kaip veikia</p>
+    <h2>Trys žingsniai — viskas automatiškai</h2>
+    <p class="section-sub">Pardavėjas užpildo formą — visa kita sistema padaro pati.</p>
+    <div class="steps fade-up">
+      <div class="step">
+        <span class="step-num">01</span>
+        <div class="step-icon green">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+            <rect x="3" y="3" width="16" height="16" rx="2.5" stroke="#1a9e6e" stroke-width="1.7"/>
+            <path d="M7 9h8M7 13h5" stroke="#1a9e6e" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>Pardavėjas užpildo formą</h3>
+        <p>Greita „Google" forma su automobilio patikrinimo duomenimis — techninė būklė, rida, metai.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">02</span>
+        <div class="step-icon blue">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+            <path d="M11 4v7l4.5 2.5" stroke="#4285f4" stroke-width="1.7" stroke-linecap="round"/>
+            <circle cx="11" cy="11" r="7.5" stroke="#4285f4" stroke-width="1.7"/>
+          </svg>
+        </div>
+        <h3>Sistema generuoja PDF</h3>
+        <p>Automatizacija sukuria profesionalią PDF ataskaitą su jūsų salono pavadinimu — akimirksniu.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">03</span>
+        <div class="step-icon amber">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+            <path d="M4 11l5 5 9-9" stroke="#e8a020" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Pirkėjas gauna el. paštu</h3>
+        <p>PDF automatiškai išsiunčiamas pirkėjui — jūsų komanda nieko daryti nereikia.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section id="privalumai" style="background: #fff; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="container">
+    <div class="benefits-grid">
+      <div class="fade-up">
+        <p class="section-label">Privalumai</p>
+        <h2>Kodėl salonai renkasi Autoataskaita?</h2>
+        <div class="benefit-list" style="margin-top: 32px;">
+          <div class="benefit-item">
+            <div class="benefit-check">
+              <svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="#1a9e6e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+            </div>
+            <div class="benefit-text">
+              <h4>Sutaupo laiko</h4>
+              <p>Nebereikia rankiniu būdu spausdinti, pildyti ar siųsti dokumentų.</p>
+            </div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-check">
+              <svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="#1a9e6e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+            </div>
+            <div class="benefit-text">
+              <h4>Profesionalus įspūdis</h4>
+              <p>Kiekviena ataskaita atrodo tvarkingai ir patikimai — pirkėjai pasitiki.</p>
+            </div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-check">
+              <svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="#1a9e6e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+            </div>
+            <div class="benefit-text">
+              <h4>Jūsų branding'as</h4>
+              <p>Ataskaita su jūsų salono pavadinimu — ne kažkokia bendra forma.</p>
+            </div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-check">
+              <svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="#1a9e6e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+            </div>
+            <div class="benefit-text">
+              <h4>Greita sąranka</h4>
+              <p>Sistema paruošta per 1–2 dienas. Nereikia jokių techninių žinių.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PDF PREVIEW -->
+      <div class="pdf-card fade-up">
+        <div class="pdf-header">
+          <div>
+            <div class="pdf-title">Patikrinimo ataskaita</div>
+            <div class="pdf-subtitle">VW Golf VII · 2018 · 120 000 km</div>
+          </div>
+          <span class="pdf-badge">PDF</span>
+        </div>
+        <div class="pdf-body">
+          <div class="pdf-row">
+            <span class="pdf-row-label">Variklis</span>
+            <span class="status status-ok">Gera būklė</span>
+          </div>
+          <div class="pdf-row">
+            <span class="pdf-row-label">Transmisija</span>
+            <span class="status status-ok">Gera būklė</span>
+          </div>
+          <div class="pdf-row">
+            <span class="pdf-row-label">Stabdžiai</span>
+            <span class="status status-warn">Reikia dėmesio</span>
+          </div>
+          <div class="pdf-row">
+            <span class="pdf-row-label">Kėbulas</span>
+            <span class="status status-ok">Gera būklė</span>
+          </div>
+          <div class="pdf-row">
+            <span class="pdf-row-label">Elektros sistema</span>
+            <span class="status status-ok">Gera būklė</span>
+          </div>
+          <div class="pdf-row">
+            <span class="pdf-row-label">Padangos</span>
+            <span class="status status-ok">Gera būklė</span>
+          </div>
+        </div>
+        <div class="pdf-footer">
+          <span>Išsiųsta: 2025-04-09 14:32</span>
+          <span>autoataskaita.com</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="kainos">
+  <div class="container" style="text-align: center;">
+    <p class="section-label">Kainos</p>
+    <h2>Paprasta kainodara</h2>
+    <p class="section-sub" style="margin: 0 auto 48px;">Vienkartinė sąranka + mėnesinis palaikymas. Jokių staigmenų.</p>
+    <div class="pricing-grid fade-up">
+      <div class="price-card">
+        <p class="price-label">Vienkartinis</p>
+        <div class="price-amount">149€</div>
+        <div class="price-period">sąranka</div>
+        <p class="price-desc">Pilna sistemos sąranka pagal jūsų saloną.</p>
+        <ul class="price-includes">
+          <li><span class="tick">✓</span> Google forma</li>
+          <li><span class="tick">✓</span> PDF šablonas</li>
+          <li><span class="tick">✓</span> El. pašto siuntimas</li>
+          <li><span class="tick">✓</span> Testavimas</li>
+        </ul>
+      </div>
+      <div class="price-card featured">
+        <span class="featured-badge">Rekomenduojama</span>
+        <p class="price-label">Mėnesinis</p>
+        <div class="price-amount">29€</div>
+        <div class="price-period">per mėnesį</div>
+        <p class="price-desc">Priežiūra, atnaujinimai ir greitas palaikymas.</p>
+        <ul class="price-includes">
+          <li><span class="tick">✓</span> Techninė priežiūra</li>
+          <li><span class="tick">✓</span> Atnaujinimai</li>
+          <li><span class="tick">✓</span> Palaikymas el. paštu</li>
+          <li><span class="tick">✓</span> Pakeitimai pagal poreikį</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="kontaktai" style="padding: 0 24px 80px;">
+  <div class="cta-section fade-up">
+    <h2>Pradėkite šiandien</h2>
+    <p>Susisiekite ir sistema bus paruošta per 1–2 dienas.</p>
+    <a href="/cdn-cgi/l/email-protection#9ef7f0f8f1deffebeaf1ffeaffedf5fff7eaffb0fdf1f3" class="btn btn-white">Rašyti el. paštu</a>
+    <p class="cta-note">arba susisiekite per WhatsApp</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 Autoataskaita.com · Klaipėda, Lietuva</p>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  const observer = new Intersec
