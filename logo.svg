@@ -1,0 +1,22 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background rounded square -->
+  <rect width="200" height="200" rx="44" fill="#1a9e6e"/>
+
+  <!-- Document body -->
+  <rect x="52" y="38" width="88" height="108" rx="10" fill="white"/>
+
+  <!-- Folded corner -->
+  <polyline points="116,38 140,38 140,62 116,62 116,38" fill="#e6f7f1" stroke="none"/>
+  <polyline points="116,38 116,62 140,62" fill="none" stroke="#1a9e6e" stroke-width="2.5"/>
+
+  <!-- Document lines -->
+  <line x1="66" y1="90" x2="118" y2="90" stroke="#c0e8d8" stroke-width="5" stroke-linecap="round"/>
+  <line x1="66" y1="106" x2="118" y2="106" stroke="#c0e8d8" stroke-width="5" stroke-linecap="round"/>
+  <line x1="66" y1="122" x2="98" y2="122" stroke="#c0e8d8" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- Checkmark badge circle -->
+  <circle cx="146" cy="156" r="28" fill="#0d6b4a"/>
+
+  <!-- Checkmark -->
+  <path d="M133 156l9 9 18-18" fill="none" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
